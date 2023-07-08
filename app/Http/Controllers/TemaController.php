@@ -14,10 +14,37 @@ class TemaController extends Controller
             'temas'=>$temas
         ]);
     }
-    public function create(){
-        $tema= new Tema();
-        $tema->nombreTema=$_REQUEST['tema'];
+    public function create(Request $request){
+        if(isset($request->id) && $request->id!=""){
+            $tema=Tema::find($request->id);
+            $clase="alert alert-primary";
+            $msg="Elemento <b>Modificado</b> Correctamente";
+        }
+        else{
+            $tema= new Tema();
+            $clase="alert alert-success";
+            $msg="Elemento <b>Agregado</b> Correctamente";
+        }
+        $tema->nombreTema=$request->input('tema');
         $tema->save();
-        return redirect('temas');
+        return redirect('temas')
+                ->with('msg',$clase)
+                ->with('clase',$msg);
+    }
+    public function delete($id){
+        $tema=Tema::find($id);
+        $tema->delete();
+        return redirect()
+                ->route('temas')
+                ->with('msg','Elemento Eliminado Correctamente')
+                ->with('clase','alert alert-danger');
+    }
+    public function editar($id){
+        $tema=Tema::find($id);
+        return redirect()
+                ->route('temas')
+                ->with(['id'=>$tema->id,
+                        'tema'=>$tema->nombreTema
+                        ]);
     }
 }

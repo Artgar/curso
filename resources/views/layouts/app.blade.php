@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    @livewireStyles
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -21,7 +21,11 @@
         @include('componentes.navbar')
         <main class="py-4">
             @yield('content')
+            @isset($slot)
+                {{$slot}}
+            @endisset
         </main>
     </div>
+    @livewireScripts
 </body>
 </html>
