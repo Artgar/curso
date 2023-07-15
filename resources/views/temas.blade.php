@@ -13,6 +13,9 @@
             @if(session('msg'))
                 <div class="{{ session('clase') }} mt-4" role="alert">{{ session('msg') }}</div>
             @endif
+            @error('tema')
+                <div class="alert alert-danger mt-4">{{ $message }}</div>
+            @enderror
         </form>
         {{-- .card>.card-body--}}
         <div class="card mt-4">

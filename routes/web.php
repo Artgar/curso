@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\inicio;
+use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TemaController;
 use App\Http\Livewire\Usuarios;
@@ -19,10 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [InicioController::class,'inicio'])->name('welcome');
 Auth::routes();
 //estas rutas perteneces a todos los usuarios
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -42,4 +41,4 @@ Route::prefix('/posts')->middleware('auth')->group(function(){
     Route::get('/editar/{id}',[PostController::class,'editar'])->name('editarPost');
 });
 
-Route::get('/usuarios',Usuarios::class);
+Route::get('/usuarios',Usuarios::class)->middleware(['auth','rol:Administrador'])->name('usuarios');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tema;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TemaController extends Controller
 {
@@ -15,6 +16,9 @@ class TemaController extends Controller
         ]);
     }
     public function create(Request $request){
+        $request->validate([
+            'tema' => 'required|max:255|min:4'
+        ]);
         if(isset($request->id) && $request->id!=""){
             $tema=Tema::find($request->id);
             $clase="alert alert-primary";
