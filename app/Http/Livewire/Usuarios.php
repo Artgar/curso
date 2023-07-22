@@ -5,11 +5,17 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+//para las fotos
+use Livewire\WithFileUploads;
+//
 use Livewire\WithPagination;
 
 class Usuarios extends Component
 {
     use WithPagination;
+    //para las fotos
+    use WithFileUploads;
+    //
     protected $paginationTheme = 'bootstrap';
 
     var $nombre;
@@ -17,17 +23,21 @@ class Usuarios extends Component
     var $contrasenia;
     var $idd;
     var $txtBoton='Crear';
+    var $foto;
 
     public function crear(){
+        $path=$this->foto->store('fotos');
         if($this->txtBoton=='Crear'){
             $usuario=new User([
                     'name'=>$this->nombre,
                     'email'=>$this->correo,
+                    'foto'=>$path,
                     'password'=>Hash::make($this->contrasenia)
                 ]);
         }else{ 
             $usuario=User::findOrFail($this->idd);
-            $usuario->name=$this->nombre; 
+            $usuario->name=$this->nombre;
+            $usuario->foto=$path; 
             $usuario->email=$this->correo;   
         }
             $usuario->save();
