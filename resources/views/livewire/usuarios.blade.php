@@ -7,6 +7,9 @@
                 <div class="card offset-5 col-2">
                     <div class="card-header">Foto:</div>
                     <div class="card-body">
+                        <div wire:loading wire:target="foto">
+                            <div class="alert alert-info">cargando imagen</div>                     
+                        </div>
                         @if ($foto)
                             <img class="img-fluid"src="{{ $foto->temporaryUrl() }}">
                         @endif
@@ -20,7 +23,7 @@
                 <input type="text" wire:model="contrasenia" id="contraseña" class="form-control">
                 <label for="foto">Foto: </label>
                 <input type="file" wire:model="foto" class="form-control">
-                <input type="submit" value="{{ $txtBoton }}" class="btn btn-dark mt-4">
+                <input type="submit" value="{{ $txtBoton }}" wire:loading.attr="disabled" class="btn btn-dark mt-4">
                 @if(session('msg')) 
                     <div class="alert alert-success mt-4">{{ session('msg') }}</div>
                 @endif
