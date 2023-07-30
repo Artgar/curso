@@ -1,14 +1,14 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\inicio;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\pdfController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TemaController;
 use App\Http\Livewire\Usuarios;
-use App\Models\Tema;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +42,9 @@ Route::prefix('/posts')->middleware('auth')->group(function(){
 });
 
 Route::get('/usuarios',Usuarios::class)->middleware(['auth','rol:Administrador'])->name('usuarios');
+///se puede agregar middleware si es archivo privado
+Route::prefix('/pdf')->middleware('auth')->group(function(){
+    Route::get('/usuarios',[pdfController::class,'usuariosPDF'])->name('usuariosPDF');
+    //info solo un usuario
+    Route::get('/usuario/{id}',[pdfController::class,'unoPDF'])->name('soloUnUsuarioPDF');
+});

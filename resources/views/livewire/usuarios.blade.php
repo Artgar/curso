@@ -28,6 +28,7 @@
                     <div class="alert alert-success mt-4">{{ session('msg') }}</div>
                 @endif
             </form>
+            <a class="btn btn-dark mt-4" href="{{ route('usuariosPDF') }}">Crear pdf</a>
             <div class="card mt-4">
                 <table class="table">
                     <thead>
@@ -56,6 +57,7 @@
                                     <td>
                                         <div class="btn btn-success" wire:click="cargar({{ $user->id }})">Editar</div>
                                         <div class="btn btn-danger" wire:click="eliminar({{ $user->id }})">Eliminar</div>
+                                        <a class="btn btn-secondary" href="{{ route('soloUnUsuarioPDF',$user->id) }}">PDF</a>
                                     </td>
                                 </tr>                            
                             @endforeach

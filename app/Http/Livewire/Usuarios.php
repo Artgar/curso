@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 //para las fotos
 use Livewire\WithFileUploads;
-//
+//para la paginación
 use Livewire\WithPagination;
+//para los pdf
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Usuarios extends Component
 {
@@ -16,6 +18,7 @@ class Usuarios extends Component
     //para las fotos
     use WithFileUploads;
     //
+
     protected $paginationTheme = 'bootstrap';
 
     var $nombre;
@@ -41,6 +44,7 @@ class Usuarios extends Component
             $usuario->email=$this->correo;   
         }
             $usuario->save();
+            $this->txtBoton='Crear';
             session()->flash('msg','Usuario Ingresado Correctamente');
     }
     public function eliminar($id){
